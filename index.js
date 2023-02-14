@@ -64,7 +64,7 @@ dns.lookup('https://google.com', options, (err, address) => {
   }
 });
 
-  //Validate URL domain
+  //If you pass an invalid URL that doesn't follow the valid, it retuns invalid
   if(!url.includes('https://') && !url.includes('http://')) {
     return res.json({ error: 'invalid url' })
   }
@@ -91,17 +91,23 @@ dns.lookup('https://google.com', options, (err, address) => {
   })
 })
 
+//When you visit /api/shorturl/<short_url>, you will be redirected to the original URL
 app.get('/api/shorturl/:short_url', function(req, res) {
+
+  // parse in the length as an interger
   const shorturl = parseInt(req.params.short_url)
-  console.log(shorturl)
+
+//search the empty array for the length and return the first index at which a given element can be found in the array.
  const foundIndex = short_url.indexOf(shorturl)
 
+//if the foundindex is less than 0
   if(foundIndex < 0) {
       return res.json({
       error: "No short URL found for the given input"
     })
 }
 
+//redirect to the property of the given short_url length
   res.redirect(original_url[foundIndex])
 })
 
